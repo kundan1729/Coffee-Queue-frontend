@@ -8,6 +8,7 @@ import styles from './Cashier.module.css';
 
 const Cashier = () => {
   const [formData, setFormData] = useState({
+    customerName: '',
     drinkType: '',
     customerType: 'NEW',
     loyaltyStatus: 'NONE',
@@ -16,17 +17,49 @@ const Cashier = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [orderResponse, setOrderResponse] = useState(null);
+  const [simCount, setSimCount] = useState(3);
+  const [simLoading, setSimLoading] = useState(false);
+  const [simResults, setSimResults] = useState([]);
 
   const drinkTypes = [
+    'Cold Brew',
     'Espresso',
     'Americano',
     'Cappuccino',
     'Latte',
     'Mocha',
-    'Macchiato',
-    'Flat White',
-    'Cold Brew',
   ];
+
+  const customerNames = [
+    'Alice', 'Bob', 'Charlie', 'Diana', 'Ethan',
+    'Fiona', 'George', 'Hannah', 'Isaac', 'Julia',
+    'Kevin', 'Luna', 'Max', 'Nina', 'Oscar',
+  ];
+
+  const randomPick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+  const handleQuickSimulate = async () => {
+    setSimLoading(true);
+    setSimResults([]);
+    setError('');
+    const results = [];
+    for (let i = 0; i < simCount; i++) {
+      try {
+        const order = {
+          customerName: randomPick(customerNames),
+          drinkType: randomPick(drinkTypes),
+          customerType: Math.random() < 0.7 ? 'NEW' : 'REGULAR',
+          loyaltyStatus: Math.random() < 0.1 ? 'GOLD' : 'NONE',
+        };
+        const res = await orderAPI.createOrder(order);
+        results.push({ ...order, id: res.id, waitTime: res.estimatedWaitTime, ok: true });
+      } catch (err) {
+        results.push({ ok: false, error: err.response?.data?.message || 'Failed' });
+      }
+    }
+    setSimResults(results);
+    setSimLoading(false);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -52,6 +85,7 @@ const Cashier = () => {
       const response = await orderAPI.createOrder(formData);
       setOrderResponse(response);
       setFormData({
+        customerName: '',
         drinkType: '',
         customerType: 'NEW',
         loyaltyStatus: 'NONE',
@@ -79,6 +113,21 @@ const Cashier = () => {
           {error && <ErrorBanner message={error} onClose={() => setError('')} />}
 
           <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.formGroup}>
+              <label className={styles.label} htmlFor="customerName">
+                Customer Name
+              </label>
+              <input
+                id="customerName"
+                name="customerName"
+                type="text"
+                value={formData.customerName}
+                onChange={handleChange}
+                className={styles.input}
+                placeholder="Optional"
+              />
+            </div>
+
             <div className={styles.formGroup}>
               <label className={styles.label} htmlFor="drinkType">
                 Drink Type *
@@ -180,6 +229,70 @@ const Cashier = () => {
           )}
         </AnimatePresence>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, delay: 0.3 }}
+      >
+        <AnimatedCard delay={0.3} hover={false} className={styles.simCard}>
+          <h2 className={styles.simTitle}>Quick Simulate</h2>
+          <p className={styles.simSubtitle}>Batch-create random orders for testing</p>
+          <div className={styles.simControls}>
+            <div className={styles.simCountRow}>
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  className={`${styles.simCountBtn} ${simCount === n ? styles.simCountActive : ''}`}
+                  onClick={() => setSimCount(n)}
+                >
+                  {n}
+                </button>
+              ))}
+            </div>
+            <motion.button
+              type="button"
+              className={`btn btn-primary ${styles.simBtn}`}
+              disabled={simLoading}
+              onClick={handleQuickSimulate}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {simLoading ? <Loader size="small" /> : `Create ${simCount} Order${simCount > 1 ? 's' : ''}`}
+            </motion.button>
+          </div>
+
+          <AnimatePresence>
+            {simResults.length > 0 && (
+              <motion.div
+                className={styles.simResults}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+              >
+                {simResults.map((r, i) => (
+                  <div key={i} className={`${styles.simResultRow} ${r.ok ? styles.simOk : styles.simFail}`}>
+                    {r.ok ? (
+                      <>
+                        <span className={styles.simDot}>✓</span>
+                        <span className={styles.simName}>{r.customerName}</span>
+                        <span className={styles.simDrink}>{r.drinkType}</span>
+                        <span className={styles.simWait}>~{r.waitTime}m</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className={styles.simDot}>✗</span>
+                        <span className={styles.simError}>{r.error}</span>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </AnimatedCard>
+      </motion.div>
     </div>
   );
 };

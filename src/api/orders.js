@@ -16,8 +16,18 @@ export const orderAPI = {
     return response.data;
   },
 
+  getAllBaristas: async () => {
+    const response = await apiClient.get('/api/barista/all');
+    return response.data;
+  },
+
   completeOrder: async () => {
     const response = await apiClient.post('/api/barista/complete');
+    return response.data;
+  },
+
+  completeBaristaOrder: async (baristaId) => {
+    const response = await apiClient.post(`/api/baristas/${baristaId}/complete`);
     return response.data;
   },
 
@@ -28,6 +38,11 @@ export const orderAPI = {
 
   getAlerts: async () => {
     const response = await apiClient.get('/api/manager/alerts');
+    return response.data;
+  },
+
+  runSimulation: async (testCase) => {
+    const response = await apiClient.post('/api/manager/simulation', { testCase });
     return response.data;
   },
 };

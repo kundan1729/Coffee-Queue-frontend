@@ -55,11 +55,30 @@
   transition: var(--transition);
 }
 
+.input {
+  padding: var(--spacing-md);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  transition: var(--transition);
+}
+
 .select:hover {
   border-color: var(--color-accent);
 }
 
+.input:hover {
+  border-color: var(--color-accent);
+}
+
 .select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(200, 155, 60, 0.2);
+}
+
+.input:focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 0 3px rgba(200, 155, 60, 0.2);
 }
@@ -73,7 +92,7 @@
 
 .successCard {
   background: linear-gradient(135deg, var(--color-primary) 0%, #8a6348 100%);
-  color: #fffaf3;
+  color: #ffffff;
   text-align: center;
   max-width: 600px;
 }
@@ -119,4 +138,126 @@
 .detailValue {
   font-weight: 700;
   font-size: 1.125rem;
+}
+
+/* Quick Simulate */
+.simCard {
+  max-width: 600px;
+}
+
+.simTitle {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: 2px;
+}
+
+.simSubtitle {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.simControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+}
+
+.simCountRow {
+  display: flex;
+  gap: 6px;
+}
+
+.simCountBtn {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.simCountBtn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.simCountActive {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.simBtn {
+  padding: 10px 22px;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.simResults {
+  margin-top: var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.simResultRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+}
+
+.simOk {
+  background: rgba(46, 158, 72, 0.08);
+  border: 1px solid rgba(46, 158, 72, 0.2);
+}
+
+.simFail {
+  background: rgba(208, 64, 64, 0.06);
+  border: 1px solid rgba(208, 64, 64, 0.2);
+}
+
+.simDot {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.simOk .simDot {
+  color: #34c27a;
+}
+
+.simFail .simDot {
+  color: #ef6b4a;
+}
+
+.simName {
+  font-weight: 600;
+  color: var(--color-text);
+  min-width: 70px;
+}
+
+.simDrink {
+  color: var(--color-text-secondary);
+  flex: 1;
+}
+
+.simWait {
+  font-weight: 600;
+  color: var(--color-accent);
+  margin-left: auto;
+}
+
+.simError {
+  color: #ef6b4a;
 }
