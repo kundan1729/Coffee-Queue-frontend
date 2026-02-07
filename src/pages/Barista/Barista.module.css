@@ -1,5 +1,5 @@
 .barista {
-  max-width: 900px;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
@@ -23,65 +23,93 @@
   margin-bottom: var(--spacing-xl);
 }
 
-.container {
+/* ── 3-card grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+}
+
+.baristaCard {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xl);
+  min-height: 320px;
+  transition: box-shadow 0.3s ease;
 }
 
-.statusCard {
-  background: linear-gradient(135deg, #6f4e37 0%, #4a2f20 100%);
-  color: #fffaf3;
+.busyCard {
+  border: 2px solid var(--color-warning);
+  box-shadow: 0 0 16px rgba(201, 118, 45, 0.2);
 }
 
-.statusHeader {
+.idleCardBg {
+  border: 2px solid var(--color-success);
+  opacity: 0.85;
+}
+
+/* ── Card header ── */
+.cardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: var(--spacing-md);
 }
 
-.statusTitle {
-  font-size: 1.5rem;
-  font-weight: 600;
+.baristaInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.baristaAvatar {
+  font-size: 2rem;
+}
+
+.baristaName {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.baristaStats {
+  font-size: 0.75rem;
+  color: var(--color-text-secondary);
 }
 
 .statusBadge {
-  padding: var(--spacing-sm) var(--spacing-lg);
+  padding: 6px 14px;
   border-radius: var(--radius-md);
   font-weight: 700;
-  font-size: 1.125rem;
+  font-size: 0.85rem;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
 
 .statusBadge.busy {
   background: var(--color-warning);
-  color: #fffaf3;
-  box-shadow: 0 0 20px rgba(201, 118, 45, 0.45);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(200, 133, 10, 0.3);
 }
 
 .statusBadge.idle {
   background: var(--color-success);
-  color: #fffaf3;
+  color: #ffffff;
 }
 
-.orderCard {
-  padding: var(--spacing-xl);
-}
-
-.orderTitle {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: var(--spacing-lg);
-  text-align: center;
+/* ── Order section (busy) ── */
+.orderSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 }
 
 .orderDetails {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-xl);
-  padding: var(--spacing-lg);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
   background: #f7efe5;
   border-radius: var(--radius-md);
 }
@@ -89,11 +117,11 @@
 .orderInfo {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: 2px;
 }
 
 .label {
-  font-size: 0.875rem;
+  font-size: 0.7rem;
   color: var(--color-text-secondary);
   text-transform: uppercase;
   font-weight: 600;
@@ -101,75 +129,79 @@
 }
 
 .value {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   color: var(--color-text);
   font-weight: 700;
 }
 
-.timerSection {
+.timerRow {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: var(--spacing-md);
-  padding: var(--spacing-xl);
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
   background: linear-gradient(135deg, var(--color-accent) 0%, #b48730 100%);
-  border-radius: var(--radius-lg);
-  margin-bottom: var(--spacing-xl);
+  border-radius: var(--radius-md);
 }
 
 .timerLabel {
-  color: rgba(58, 42, 29, 0.9);
-  font-size: 1rem;
-  font-weight: 500;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .timer {
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 700;
-  color: #3a2a1d;
+  color: #ffffff;
   font-variant-numeric: tabular-nums;
   font-family: 'Courier New', monospace;
 }
 
 .completeBtn {
   width: 100%;
-  padding: var(--spacing-lg);
-  font-size: 1.25rem;
+  padding: var(--spacing-md);
+  font-size: 1rem;
   font-weight: 700;
+  margin-top: auto;
 }
 
-.idleCard {
+/* ── Idle section ── */
+.idleSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: var(--spacing-xl) * 2;
+  padding: var(--spacing-lg) 0;
 }
 
 .idleIcon {
-  font-size: 5rem;
-  display: block;
-  margin-bottom: var(--spacing-lg);
-  opacity: 0.5;
-}
-
-.idleTitle {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: var(--color-text);
+  font-size: 3rem;
+  opacity: 0.4;
   margin-bottom: var(--spacing-sm);
 }
 
 .idleText {
-  font-size: 1.125rem;
+  font-size: 0.95rem;
   color: var(--color-text-secondary);
 }
 
-@media (max-width: 768px) {
-  .orderDetails {
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
     grid-template-columns: 1fr;
   }
 
   .timer {
-    font-size: 3rem;
+    font-size: 1.5rem;
   }
 }
