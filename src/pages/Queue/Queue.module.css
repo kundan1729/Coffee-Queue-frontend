@@ -1,0 +1,106 @@
+.queue {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-xl);
+  gap: var(--spacing-xl);
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--color-text-secondary);
+}
+
+.queueCount {
+  background: linear-gradient(135deg, var(--color-accent) 0%, #b48730 100%);
+  color: #3a2a1d;
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 150px;
+  box-shadow: var(--shadow-lg);
+}
+
+.countNumber {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.countLabel {
+  font-size: 0.875rem;
+  opacity: 0.8;
+  margin-top: var(--spacing-sm);
+  text-align: center;
+}
+
+.queueContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.emptyState {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: calc(var(--spacing-xl) * 2);
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  border: 1px solid var(--color-border);
+  background-image: linear-gradient(0deg, rgba(111, 78, 55, 0.03), rgba(111, 78, 55, 0.03)),
+    repeating-linear-gradient(135deg, rgba(111, 78, 55, 0.035) 0 2px, transparent 2px 7px);
+}
+
+.emptyIcon {
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+  opacity: 0.5;
+}
+
+.emptyTitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+}
+
+.emptyText {
+  font-size: 1rem;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .queueContainer {
+    grid-template-columns: 1fr;
+  }
+}

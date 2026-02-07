@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="coffeeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#6F4E37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3E2723;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect x="25" y="40" width="50" height="45" rx="5" fill="url(#coffeeGradient)"/>
+  <path d="M 75 55 Q 85 55 85 65 Q 85 75 75 75" stroke="#6F4E37" stroke-width="3" fill="none"/>
+  <path d="M 35 35 Q 40 20 45 35" stroke="#8D6E63" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 50 35 Q 55 20 60 35" stroke="#8D6E63" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>
